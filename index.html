@@ -1084,7 +1084,9 @@
   })();
 
   /* ---------- Arranque: todos ven el calendario; quien puede editar pasa al editor ---------- */
-  renderCalendar($("#root"), saved);
+  // Modo de prueba: añadiendo ?vistaprevia al enlace se abren todos los días y no se guarda nada en el navegador
+  const PREVIEW = new URLSearchParams(location.search).has("vistaprevia");
+  renderCalendar($("#root"), saved, {previewAll: PREVIEW});
   (async () => {
     if (!window.claude || !claude.use) return;
     const [user, artifact] = await Promise.all([claude.use("user"), claude.use("artifact")]);
